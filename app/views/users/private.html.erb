@@ -1,0 +1,5 @@
+<h1>Hello <%=session[:user_id]%></h1>
+
+<p>This is area 51, this is a restricted site, if you have authenticted you will be able to see this messge!</p>
+<%= link_to "logout", :controller => 'user', :action => 'logout' %>
+

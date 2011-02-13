@@ -1,0 +1,34 @@
+<table class="geo">
+    <tr>
+        <th style="width:50px">&nbsp;</th>
+        <th style="width:150px">Name</th>
+        <th style="width:150px">Creator</th>
+        <th style="width:80px">Latitude</th>
+        <th style="width:80px">Longitude</th>
+        <th style="width:25px">&nbsp;</th>
+        <th style="width:25px">&nbsp;</th>
+    </tr>
+</table>
+<% if @geocaches.nil? || @geocaches == false -%>
+    <div id="nodata" class="nodata">No geocaches found within 20 miles of your search point</div>
+<% else -%>
+<div id="geolist_scrollable_100">
+    <table class="geo">
+        <% @points.each do |point|
+            geocache=ActiveSupport::JSON.decode(point)
+            geocache.each_with_index do |p,index|
+        -%>
+<tr class="<%= cycle('oddrow','evenrow') %>">
+        <td style="width:50px"><%=h (index+1).to_s %></td>
+        <td style="width:150px" <%= "onclick=\"locate_geocode('#{h p['geocache']['lat']}','#{h p['geocache']['lon']}')\"" %>><%=h p['geocache']['name'] %></td>
+        <td style="width:150px"><% link_to(:controller => 'profile', :action => 'show', :id => p['geocache']['user_id']) do %><%=h p['geocache']['user_name'] %><% end %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", p['geocache']['lat'] %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", p['geocache']['lon'] %></td>
+        <td style="text-align:center; width:25px;" <%= "onclick=\"locate_geocode('#{h p['geocache']['lat']}','#{h p['geocache']['lon']}')\"" %>><%= image_tag('icons/magnifier_zoom_in.png') %></td>
+        <td style="text-align:center; width:25px;"><%= link_to image_tag('icons/information.png'), geocache_path(p['geocache']['id']) %></td>
+</tr>
+<%      end
+    end %>
+</table>
+</div>
+<%end%>

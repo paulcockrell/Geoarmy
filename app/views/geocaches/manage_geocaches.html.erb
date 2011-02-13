@@ -1,0 +1,15 @@
+<% if @current_user.nil? %>
+    <p>Hello and welcome to Geocacher.net. We hope you sign up and get geocaching right away!!</p>
+    <p>Lorum ipsum doriam Lorum ipsum doriam </p>
+<% else %>
+    <h1>Hello <%= @current_user.name %></h1>
+    <%= render :partial => 'geocaches/uploaded_geocaches' %>
+<div class="topmenu_item">
+</div>
+    <%= render :partial => 'geocaches/favorite_geocaches' %>
+<div class="topmenu_item">
+</div>
+    <%= render :partial => 'geocaches/found_geocaches' %>
+<div class="topmenu_itme">
+</div>
+<% end %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  geocode: MyString
+  creator: MyString
+  notes: MyText
+
+two:
+  geocode: MyString
+  creator: MyString
+  notes: MyText

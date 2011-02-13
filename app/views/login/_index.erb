@@ -1,0 +1,110 @@
+<%= box_blue_start %>
+<% if @current_user.nil? %>
+    <p><strong>Log In</strong></p>
+        <% form_tag '/login/login' do %>
+            <table>
+                <tr>
+                    <td class="form_item"><label for="name">Username:</label></td>
+                    <td class="form_item"><%= text_field_tag :name %></td>
+                </tr>
+                <tr>
+                    <td class="form_item"><label for="password">Password:</label></td>
+                    <td class="form_item"><%= password_field_tag :password %></td>
+                </tr>
+            </table>
+            <div class="form-button"><%= button_to "Login" %></div>
+        <% end %>
+        <div>
+            <% link_to(:controller=>'user', :action=>'forgotten_username') do  %>
+                Forgotten your username?
+            <% end %>
+        </div>
+        <div>
+            <% link_to(:controller=>'user', :action=>'forgotten_password') do %>
+                Forgotten your password?
+            <% end %>
+        </div>
+        <div>
+        Not registered yet?
+        <% link_to(:controller=>'register') do %>
+            click here
+        <% end %>
+        </div>
+    <% else %>
+        <table>
+            <tr>
+                <td>
+                    <p><%= image_tag("ranks/#{get_rank_image(@current_user.rank)[0].image}", :float=>"left") %></p>
+                </td>
+                <td style="vertical-align: middle">
+                    <p><strong><%=h "Hello #{@current_user.name}" %></strong><br/>
+                    <strong>Rank: <%=h get_rank_name(@current_user.rank)[0].rank%></strong><br/>
+                    <strong>Points: <%=h @current_user.rank %></p>
+                </td>
+            </tr>
+        </table>
+        <div class="navSpacer"></div>
+        <div class="module_user_options">
+            <div class="profileMenu" style="padding:1px;">
+                <ul class="sideNav">
+                    <li id="navigationItem">
+                        <% link_to(:controller=>'action_log', :action=>'index') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/ruby.png">
+                            </span>
+                            <span>Geocache feed</span>
+                        <%end%>
+                    </li>
+                    <li id="navigationItem">
+                        <% link_to(:controller=>'geocaches', :action=>'manage_geocaches') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/folder_ruby.png">
+                            </span>
+                            <span>Manage my geocaches</span>
+                        <% end %>
+                    </li>
+                    <li id="navigationItem">
+                        <% link_to(:controller=>'profile', :action=>'connections') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/group_link.png">
+                            </span>
+                            <span>User connections</span>
+                        <% end %>
+                    </li>
+                    <li id="navigationItem">
+                        <% link_to(:controller=>'profile', :action=>'index') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/user.png">
+                            </span>
+                            <span>View my profile</span>
+                        <% end %>
+                    </li>
+                    <li id="navigationItem">
+                        <% link_to(:controller=>'profile', :action=>'edit') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/user_edit.png">
+                            </span>
+                            <span>Edit my profile</span>
+                        <% end %>
+                    </li>
+                    <li id="navigationItem">
+                        <a href="#">
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/cog.png">
+                            </span>
+                            <span>Configure alerts</span>
+                        </a>
+                    </li>
+                    <li id="navigationItem">
+                    <% link_to(:controller=>'login', :action=>'logout') do %>
+                            <span class="imgWrap">
+                                <img alt="" src="/images/icons/user_go.png">
+                            </span>
+                            <span>Log out</span>
+                    <% end %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+<% end %>
+<%= box_blue_end %>

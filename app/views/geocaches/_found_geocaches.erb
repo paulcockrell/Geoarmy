@@ -1,0 +1,40 @@
+<h1><img alt="" src="/images/icons/star.png" />&nbsp;Found Geocaches</h1>
+<%= box_grey_start %>
+<%= will_paginate @found_geocaches, :param_name => 'fo_page', :class => 'paginate_top' %>
+<table class="geo">
+    <tr>
+        <th style="width:50px">&nbsp;</th>
+        <th style="width:150px">Name</th>
+        <th style="width:150px">Found</th>
+        <th style="width:80px">Latitude</th>
+        <th style="width:80px">Longitude</th>
+        <th style="width:25px">&nbsp;</th>
+        <th style="width:25px">&nbsp;</th>
+    </tr>
+</table>
+<% if @found_geocaches.nil? || @found_geocaches.empty? -%>
+    You have no favorite geocaches yet!
+<% else -%>
+<div id="geolist_scrollable_100">
+<table class="geo">
+<%
+   @found_geocaches.each_with_index do |found_geocache,index| 
+-%>
+<tr class="<%= cycle('oddrow','evenrow', :name=>'fo_cycle') %>">
+        <td style="width:50px"><%=h (index+1).to_s %></td>
+        <td style="width:150px"><%=h found_geocache['name'] %></td>
+        <td style="width:150px"><%=h format_date(found_geocache['found'].to_date) %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", found_geocache['lat'] %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", found_geocache['lon'] %></td>
+        <td style="text-align:center; width:25px;"></td>
+        <td style="text-align:center; width:25px;"><%= link_to image_tag('icons/information.png'), geocache_path(found_geocache) %></td>
+</tr>
+<% end %>
+</table>
+</div>
+<% end %>
+<%= will_paginate @found_geocaches, :param_name => 'fo_page', :class => 'paginate_bottom' %>
+<div class="manage_div">
+    <%= link_to "Display on the map #{image_tag('icons/map_magnify.png')}", :controller=>'geocaches', :action=>'my_found_geocaches' %>
+</div>
+<%= box_grey_end %>

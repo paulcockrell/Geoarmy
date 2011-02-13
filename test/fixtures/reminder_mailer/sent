@@ -1,0 +1,3 @@
+ReminderMailer#sent
+
+Find me in app/views/reminder_mailer/sent.erb

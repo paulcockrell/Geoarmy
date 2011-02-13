@@ -1,0 +1,9 @@
+<h1>Welcome</h1>
+<% if (flash[:notice]) %>
+    <div>
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+It's <%= Time.now %><br/>
+We have logged in blood!<br/>
+Lets logout now blood: <%= link_to "Log out", :controller => "login", :action => "logout" %>

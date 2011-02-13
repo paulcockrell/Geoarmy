@@ -1,0 +1,13 @@
+<h1>User login page</h1>
+<div>
+<%= flash[:notice] %>
+</div>
+<% if session[:user] %>
+Hello
+<% else %>
+<%= form_tag :action=>'authenticate' %>
+User name:
+<%= text_field("userform", "user_name", :size=>"10") %>
+Password :
+<%= password_field("userform", "password", :size=>"10") %>
+<input type="submit" value=" LOGIN " />

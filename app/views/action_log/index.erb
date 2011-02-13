@@ -1,0 +1,22 @@
+<h1><%= @title || "Geocache feed" %></h1>
+<%= box_grey_start %>
+<% 
+    if @action_log.nil? || @action_log.empty?
+%>
+    There are now logs to display
+<%
+    else
+%>
+<%= will_paginate @action_log, :param_name => 'page', :class => 'paginate_top' %>
+<%
+        @action_log.each do |al|
+%>
+<div class="action_log_row"><%= "#{al.icons} #{al.connection_name} #{al.action} #{al.link} on #{al.created_at.strftime("%d/%m/%y %I:%M %p")}" %></div>
+<%
+        end
+%>
+    <%= will_paginate @action_log, :param_name => 'page', :class => 'paginate_bottom' %>
+<%
+    end
+%>
+<%= box_grey_end %>

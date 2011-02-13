@@ -1,0 +1,41 @@
+<h1><img alt="" src="/images/icons/heart.png" />&nbsp;Favorited Geocaches</h1>
+<%= box_grey_start %>
+<%= will_paginate @favorite_geocaches, :param_name => 'fa_page', :class => 'paginate_top' %>
+<table class="geo">
+    <tr>
+        <th style="width:50px">&nbsp;</th>
+        <th style="width:150px">Name</th>
+        <th style="width:150px">Created</th>
+        <th style="width:80px">Latitude</th>
+        <th style="width:80px">Longitude</th>
+        <th style="width:25px">&nbsp;</th>
+        <th style="width:25px">&nbsp;</th>
+    </tr>
+</table>
+<% if @favorite_geocaches.nil? || @favorite_geocaches.empty? -%>
+    You have no favorite geocaches yet!
+<% else -%>
+<div id="geolist_scrollable_100">
+<table class="geo">
+<%
+   @favorite_geocaches.each_with_index do |favorite_geocache,index| 
+   user = User.find_by_id(favorite_geocache.user_id) 
+-%>
+<tr class="<%= cycle('oddrow','evenrow', :name=>'fa_cycle') %>">
+        <td style="width:50px"><%=h (index+1).to_s %></td>
+        <td style="width:150px" <%= "onclick=\"locate_geocode('#{h favorite_geocache.lat}','#{h favorite_geocache.lon}')\"" %>><%=h favorite_geocache.name %></td>
+        <td style="width:150px"><%=h format_date(favorite_geocache.created_at) %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", favorite_geocache.lat %></td>
+        <td style="width:80px"><%=h sprintf "%.6f", favorite_geocache.lon %></td>
+        <td style="text-align:center; width:25px;"></td>
+        <td style="text-align:center; width:25px;"><%= link_to image_tag('icons/information.png'), geocache_path(favorite_geocache) %></td>
+</tr>
+<% end %>
+</table>
+</div>
+<% end %>
+<%= will_paginate @favorite_geocaches, :param_name => 'fa_page', :class => 'paginate_bottom' %>
+<div class="manage_div">
+    <%= link_to "Display on the map #{image_tag('icons/map_magnify.png')}", :controller=>'geocaches', :action=>'my_favorite_geocaches' %>
+</div>
+<%= box_grey_end %>

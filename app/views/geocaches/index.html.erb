@@ -1,0 +1,49 @@
+<% content_for :head do %>
+    <%= javascript_include_tag "geocaches/gmaps" %>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<% end %>
+<h1><%= @title || "Listing all geocaches" %></h1>
+<% if !@search.nil? %>
+<div id="geoControls">
+    <%= box_grey_start %>
+    <%= form_tag({ :action => "index" } ,{ :method => "get",:onsubmit => "return search_by_address(); return false", :id=>"address_form" } ) %>
+    <table>
+        <thead>
+            <th>Address:</th>
+            <th>&nbsp;</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="35%" style="padding-right:10px;vertical-align:middle;">
+                <%= text_field "geocache", "address", :value => @address %>
+            </td>
+            <td width="*" style="text-align:right;vertical-align:middle;">
+                <%= hidden_field_tag "lat" %>
+                <%= hidden_field_tag "lon" %>
+                <%= hidden_field_tag "commit" %>
+                <%= submit_tag("Search") %>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <%= box_grey_end %>
+</div>
+<% end 
+   @points = Array.new
+   @geocaches.each_with_index do |geocache,index| 
+     user = User.find_by_id(geocache.user_id) 
+     @points << Array["lat"=>geocache.lat,"lon"=>geocache.lon,"index"=>index,"user_id"=>user.id,"user_name"=>user.name,"geocache_id"=>geocache.id, "name"=>geocache.name]
+   end
+-%>
+<%= box_grey_start %>
+<div id="geotable" class="geotable">
+</div>
+<%= box_grey_end %>
+<% content_for :head do %>
+    <% unless @center_point.nil? || @center_point.empty? -%>
+        <%= generate_center_marker(@center_point) %>
+    <% end -%>
+<% end %>
+<%= box_grey_start %>
+    <div id="map_canvas" />
+<%= box_grey_end %>

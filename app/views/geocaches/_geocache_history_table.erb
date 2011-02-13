@@ -1,0 +1,23 @@
+<%= will_paginate @history %>
+<table class="geo_history">
+    <tr>
+        <th style="width:15px">&nbsp;</td>
+        <th style="width:50px">Name</th>
+        <th style="width:50px">Date</th>
+    </tr>
+</table>
+<% if @history.nil? || @history == false -%>
+    <div id="nodata" class="nodata">No history for this geocache</div>
+<% else -%>
+<div id="geohist_scrollable_100">
+    <table class="geo_history">
+        <% @history.each_with_index do |h, index|%>
+<tr class="<%= cycle('oddrow','evenrow') %>">
+        <td style="width:15px"><%=h (index+1).to_s %></td>
+        <td style="width:50px"><% link_to(:controller => 'profile', :action => 'show', :id => h.user.id) do %><%=h h.user.name %><% end %></td>
+        <td style="width:50px"><%=h h.created_at.strftime('%d/%m/%Y')%></td>
+</tr>
+<% end %>
+</table>
+</div>
+<%end%>

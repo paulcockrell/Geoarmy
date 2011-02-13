@@ -1,0 +1,13 @@
+<% if @geocache.nil?
+     user_id
+   else
+     user_id = @geocache.user_id
+   end
+%>
+<%= link_to_remote image_tag('icons/user_delete.png'),
+     :url => {:controller=>'connections', :action=>'delete_connection', :id => user_id},
+     :success  => "Effect.Fade('row_#{user_id}',{duration: 1.4, afterFinish: function() {$(\"row_#{user_id}\").remove();} });",
+     :update   => "$(\"row_#{user_id}\").remove()",
+     :failure => 'error' 
+
+%>

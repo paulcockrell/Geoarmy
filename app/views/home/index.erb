@@ -1,0 +1,6 @@
+<%=if session[:user_id]
+       render :partial=>'index_logged_in' 
+   else
+       render :partial=>'index_logged_out'
+   end
+%>

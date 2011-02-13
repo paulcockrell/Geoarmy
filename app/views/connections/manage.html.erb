@@ -1,0 +1,35 @@
+<h1><%= @title || "Manage my user connections" %></h1>
+<%= box_grey_start %>
+<%= will_paginate @connections, :class => 'paginate_top' %>
+<table class="geo">
+    <tr>
+        <th style="width:50px">&nbsp;</th>
+        <th style="width:150px">Name</th>
+        <th style="width:150px">Created</th>
+        <th style="width:25px">Remove</th>
+    </tr>
+</table>
+<% if @connections.nil? || @connections.empty? -%>
+    No user connections found!
+<% else -%>
+<div id="geolist_scrollable_291">
+<table class="geo">
+<%
+   @connections.each_with_index do |connection,index| 
+-%>
+<tr class="<%= cycle('oddrow','evenrow') %>" id=<%="row_#{connection.id}"%>>
+    <td style="width:50px"><%=h (index+1).to_s %></td>
+    <td style="width:150px"><% link_to(:controller => 'profile', :action => 'show', :id => connection.id) do %><%=h connection.name %><% end %></td>
+    <td style="width:150px"><%=h format_date(connection.created_at) %></td>
+    <td style="width:80px; text-align:center">
+        <span id="connections">
+            <%= render :partial=>'connections/connection_manage_del', :locals => {:user_id=>connection.id} %>
+        </span>
+</td>
+</tr>
+<% end %>
+</table>
+</div>
+<% end %>
+<%= will_paginate @connections, :class => 'paginate_bottom' %>
+<%= box_grey_end %>

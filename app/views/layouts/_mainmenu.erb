@@ -1,0 +1,37 @@
+<div class="module">              
+    <ul class="menu-nav" id="menu-nav">
+        <li class="<%= session[:active_menu]=="item10" ? "active item10" : "item10" %>">
+            <%= link_to "<span>Home</span>", :controller=>"/" %>
+        </li>
+        <% if session[:user_id] -%>
+        <li class="<%= session[:active_menu]=="item20" ? "active item20" : "item20" %>">
+        <%= link_to "<span>Geocaches</span>", :controller=>"/geocaches" %>
+        <% if 1==2 %>
+            <ul id="submenu-nav" class="submenu-nav">
+                <li>
+                <%= link_to '<span>My geocaches</span>', :controller=>'geocaches', :action=>'my_uploaded_geocaches' %>
+                </li>
+                <li>
+                <%= link_to '<span>Favorite geocaches</span>', :controller=>'geocaches', :action=>'my_favorite_geocaches' %>
+                </li>
+                <li id="last" class="last">
+                <%= link_to '<span>Found geocaches</span>', :controller=>'geocaches', :action=>'my_found_geocaches' %>
+                </li>
+            </ul>
+        <% end -%>
+        <% end -%>
+        </li>
+        <% unless @current_user %> 
+        <li class="<%= session[:active_menu]=="item30" ? "active item30" : "item30" %>">
+            <%= link_to "<span>Register</span>", :controller=>"/register" %>
+        </li>
+        <% else %>
+        <li class="<%= session[:active_menu]=="item30" ? "active item30" : "item30" %>">
+            <%= link_to "<span>Your Profile</span>", :controller=>"/profile" %>
+        </li>
+        <% end %>
+        <li class="<%= session[:active_menu]=="item40" ? "active item40" : "item40" %> right">
+            <%= link_to "<span>FAQ</span>", :controller=>"/faq" %>         
+        </li>
+    </ul>
+</div>

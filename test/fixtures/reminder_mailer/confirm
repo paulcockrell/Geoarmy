@@ -1,0 +1,3 @@
+ReminderMailer#confirm
+
+Find me in app/views/reminder_mailer/confirm.erb

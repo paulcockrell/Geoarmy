@@ -1,0 +1,11 @@
+<% if @geocache.nil?
+     geo_id = params[:id] unless params[:id].nil?
+   else
+     geo_id = @geocache.id
+   end
+%>
+<%= link_to_remote image_tag('icons/star.png'),
+     :url => {:controller=>'found', :action=>'delete_found', :id => geo_id},
+     :update => { :success => 'found', :failure => 'error' }
+
+%>

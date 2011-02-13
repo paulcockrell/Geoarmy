@@ -1,0 +1,28 @@
+<div class="flash-notice">
+    <%= flash[:notice] %>
+</div>
+<div class="depot-form">
+<% if @current_user %>
+    <fieldset>
+        <legend>Please Log In</legend>
+        <% form_tag '/login/login' do %>
+            <p>
+            <label for="name">Name</label>
+            <%= text_field_tag :name, params[:name] %>
+            </p>
+
+            <p>
+            <label for="password">Password:</label>
+            <%= password_field_tag :password, params[:params] %>
+            </p>
+
+            <p>
+            <%= submit_tag "Login" %>
+            </p>
+        <% end %>
+    </fieldset>
+<% else %>
+    <p><%= "Hello #{User.name}" %></p>
+    <p><%= link_to "Log out", :controller => "login", :action => "logout" %><p>
+<% end %>
+</div>

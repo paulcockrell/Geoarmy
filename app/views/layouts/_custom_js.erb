@@ -1,0 +1,22 @@
+<%
+    # Used for the login / out action. If :login=true/false then do the login script found in log_in_out.js 
+    #if params[:login]
+    
+    if (flash[:login])
+%>
+        <script type="text/javascript">
+            document.observe("dom:loaded", function() {
+                log_in_out_blind('login');
+            });
+        </script>
+<%
+        elsif (flash[:logout])
+%>
+        <script type="text/javascript">
+            document.observe("dom:loaded", function() {
+                log_in_out_blind('logout');
+            });
+        </script>
+<%
+    end
+%>

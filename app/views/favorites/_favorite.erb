@@ -1,0 +1,10 @@
+<% if @geocache.nil?
+     geo_id = params[:id] unless params[:id].nil?
+   else
+     geo_id = @geocache.id
+   end
+%>
+<%= link_to_remote image_tag('icons/heart_add.png'),
+     :url => {:controller=>'favorites', :action=>'add_favorite', :id => geo_id},
+     :update => { :success => 'favorite', :failure => 'error' }
+ %>

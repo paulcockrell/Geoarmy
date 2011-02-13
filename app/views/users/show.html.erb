@@ -1,0 +1,59 @@
+<h1><img alt="" src="/images/icons/user.png">&nbsp;<%=h @title || "Your profile" %></h1>
+<%= box_grey_start %>
+<p>
+  <b>Name:</b>
+  <%=h @user.name %>
+</p>
+
+<p>
+  <b>Rank:</b>
+  <%=h "#{get_rank_name(@user.rank)[0].rank}" %>
+</p>
+
+<p>
+  <b>Points:</b>
+  <%=h @user.rank || 0 %>
+</p>
+<% if session[:user_id] === @user.id %>
+<p>
+  <b>Address 1:</b>
+  <%=h @user.address_1 %>
+</p>
+
+<p>
+  <b>Address 2:</b>
+  <%=h @user.address_2 %>
+</p>
+
+<p>
+  <b>Address 3:</b>
+  <%=h @user.address_3 %>
+</p>
+
+<p>
+  <b>Post code:</b>
+  <%=h @user.postcode %>
+</p>
+
+<p>
+  <b>Email address:</b>
+  <%=h @user.email %>
+</p>
+<% end  %>
+<%= box_grey_end %>
+
+<%= box_grey_start %>
+<div class="user_controls">
+    <span>
+        <%= link_to image_tag("icons/arrow_left.png"), url_for(:back) %>
+    </span>
+    <span id="connections">
+        <% if @connection.nil? || @connection.empty? %>
+            <%= render :partial=>'connections/connection', :object=>@user.id %>
+        <% else %>
+            <%= render :partial=>'connections/connection_del', :object=>@user.id %>
+        <% end %>
+    </span>
+
+</div>
+<%= box_grey_end %>

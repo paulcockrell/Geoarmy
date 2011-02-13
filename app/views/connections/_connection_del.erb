@@ -1,0 +1,11 @@
+<% if @geocache.nil?
+     user_id = params[:id] unless params[:id].nil?
+   else
+     user_id = @geocache.user_id
+   end
+%>
+<%= link_to_remote image_tag('icons/user_delete.png'),
+     :url => {:controller=>'connections', :action=>'delete_connection', :id => user_id},
+     :update => { :success => 'connections', :failure => 'error' }
+
+%>

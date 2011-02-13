@@ -1,0 +1,97 @@
+<% content_for :head do %>
+    <%= javascript_include_tag "geocaches/manage" %>
+    <%= javascript_include_tag "geocaches/gmaps" %>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <%  points = Array.new
+    points << Array["lat"=>@geocache.lat,"lon"=>@geocache.lon,"index"=>500,"name"=>@geocache.name]
+        center_point = [@geocache.lat,@geocache.lon]
+    %>
+    <%= generate_map_markers(points) %>
+    <%= generate_center_marker(center_point) %>
+<% end %>
+<% @user_id = User.find_by_id(@geocache.user_id) 
+   @user_name = User.find_by_id(@geocache.user_id).name
+%>
+<h1><%=h @geocache.name %></h1>
+<div class="left_full">
+<%= box_grey_start %>
+<div class="left_half">
+    <table>
+        <tr>
+            <td><b>Latitude:</b></td>
+            <td><%=h sprintf "%.6f", @geocache.lat %></td>
+        </tr>
+        <tr>
+            <td><b>Longitude:</b></td>
+            <td><%=h sprintf "%.6f", @geocache.lon %></td>
+        </tr>
+        <tr>
+            <td><b>Creator:</b></td>
+        <td><% link_to(:controller=>'profile', :action=>'show', :id=>@user_id) do%><%=h @user_name %><% end %></td>
+        </tr>
+        <tr>
+            <td><b>Rating:</b></td>
+            <td><%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %></td>
+        </tr>
+    </table>
+</div>
+<div class="left_half">
+    <table>
+        <tr>
+            <td><b>Notes:&nbsp;</b></td>
+            <td><%=text_area_tag 'notes', @geocache.notes, :cols=>30, :rows=>4, :disabled=>false %></td>
+        </tr>
+    </table>
+</div>
+</div>
+<%= box_grey_end %>
+</div>
+<div class="left_full">
+<%= box_grey_start %>
+<div class="user_controls">
+    <span>
+        <%= link_to image_tag("icons/arrow_left.png"), url_for(:back) %>
+    </span>
+    <span>
+    <%= link_to image_tag("icons/page_edit.png"), edit_geocache_path(@geocache) unless session[:user_id]!=@geocache.user_id %> 
+    </span>
+    <span id="favorite">
+    <% if @favorite.nil? || @favorite.empty? %>
+        <%= render :partial=>'favorites/favorite', :object=>@geocache.id %>
+    <% else %>
+        <%= render :partial=>'favorites/favorite_del', :object=>@geocache.id %>
+    <% end %>
+    </span>
+    <span id="found">
+    <% if @found.nil? || @found.empty? %>
+        <%= render :partial=>'found/found', :object=>@geocache.id %>
+    <% else %>
+        <%= render :partial=>'found/found_del', :object=>@geocache.id %>
+    <% end %>
+    </span>
+    <span id="connections">
+        <% if @connection.nil? || @connection.empty? %>
+            <%= render :partial=>'connections/connection', :object=>@geocache.user_id %>
+        <% else %>
+            <%= render :partial=>'connections/connection_del', :object=>@geocache.user_id %>
+        <% end %>
+    </span>
+</div>
+<%= box_grey_end %>
+</div>
+<div class="left_full">
+<div class="left_half margin_right_6">
+<%= box_grey_start %>
+<div id="map_canvas"></div>
+<%= box_grey_end %>
+</div>
+<div class="left_half margin_left_6">
+    <%= box_grey_start %>
+    <div style="min-height:250px;max-height:250px;overflow:hidden">
+    <h1>Geocache history</h1>
+    <%= render :partial => 'geocache_history_table', :locals=>{:history=>@history}%>
+</div>
+<%= box_grey_end %>
+</div>
+</div>
+<%= hidden_field_tag "geocache_id", @geocache.id %>

@@ -5,7 +5,6 @@ before_filter :authorize,
     :only => [:edit, :update, :show]
 before_filter :set_menu
 
-
   def index
       @current_user = get_user
   end

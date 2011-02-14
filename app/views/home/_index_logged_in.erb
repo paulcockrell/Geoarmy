@@ -1,1 +1,9 @@
-<h1>Welcome to GeoPirate.net</h1>
+<div style="width:100%;text-align:right">
+        <%= image_tag("top-secret.png", :style => "float: righot") %>
+    </div>
+    <div>
+        <h1>Welcome <%=h get_rank_name(@current_user.rank)[0].rank %> <%=h @current_user.name %>.</h1>
+    </div>
+    <p>
+        Glad to see you back, and now its time to get earning your self some points! 
+    </p>

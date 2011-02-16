@@ -55,6 +55,14 @@ class User < ActiveRecord::Base
     stats = {:found=>user.found.find(:all).count, :uploads=>user.geocaches.find(:all).count, :favorites=>user.favorites.find(:all).count}
   end
 
+  def self.get_connections_count(user)
+    user.connections.find(:all).count
+  end
+    
+  def self.get_last_found_geocache(user)
+    user.found.find(:all, :order => 'created_at DESC', :limit => 1)
+  end
+
   def self.generate_reminder_key(user)
     User.encrypted_password("remindme", user.salt)
   end

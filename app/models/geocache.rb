@@ -21,4 +21,5 @@ class Geocache < ActiveRecord::Base
         sql_conditions += " group by geocaches.name"
         sql_conditions += " order by geocaches.id"
     end
+
 end

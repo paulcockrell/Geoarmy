@@ -1,9 +1,47 @@
-<div style="width:100%;text-align:right">
+    <div style="width:100%; text-align:right">
         <%= image_tag("top-secret.png", :style => "float: righot") %>
     </div>
-    <div>
         <h1>Welcome <%=h get_rank_name(@current_user.rank)[0].rank %> <%=h @current_user.name %>.</h1>
-    </div>
-    <p>
-        Glad to see you back, and now its time to get earning your self some points! 
+       <p>
+            We have listed relevant information from the GeoArmy top secret logs to assist you in your missions.
+       </p>
+    <%= box_grey_start %>
+        <div>
+            <span><%= image_tag('icons/asterisk_yellow.png', :class=>'icon') %></span>
+            <% if @last_found_geocache.nil? || @last_found_geocache.empty? %>
+                You must go and find your first geocache!
+            <% else %>
+                You found your last geocache on the <strong><%=h @last_found_geocache[0].created_at.strftime("%d %B %Y") %></strong>
+            <% end %>
+        </div>
+    <%= box_grey_end %>
+    <%= box_grey_start %>
+        <div>
+            <span><%= image_tag('icons/asterisk_yellow.png', :class=>'icon') %></span>
+            <% if @user_connection_count.nil? %>
+                You have no user connections yet. You can follow peoples activities on this site. Maybe they have created good Geocaches, or have found your Geocaches. Simply view their profile and clicking on the gold star to establish a connection.
+            <% else %>
+                You have <strong><%=h @user_connection_count %></strong> user connections
+            <% end %>
+        </div>
+    <%= box_grey_end %>
     </p>
+    <%= box_grey_start %>
+    <h2 style="margin-bottom:20px">Recent activity</h2>
+        <%
+        if @action_log.nil? || @action_log.empty?
+        %>
+        <p>No recent activity to report!</p>
+        <%
+        else
+            @action_log.each do |al|
+        %>
+            <div class="action_log_row"><%= "#{al.icons} #{al.connection_name} #{al.action} #{al.link} on #{al.created_at.strftime("%d/%m/%y %I:%M %p")}" %></div>
+        <%
+            end
+        %>
+        <%= link_to "View all activity", :controller => 'action_log', :action => 'index' %>
+        <%
+        end
+        %>
+        <%= box_grey_end %>

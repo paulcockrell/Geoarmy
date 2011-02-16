@@ -10,4 +10,8 @@ class Found < ActiveRecord::Base
     def self.history(id)
         find(:all, :conditions=>['geocache_id=?',id])
     end
+
+    def self.get_last_found(user_id)
+        find(:all, :conditions=>['user_id=? order by created_at ASC limit 1', user_id])
+    end
 end

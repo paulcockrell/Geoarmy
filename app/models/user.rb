@@ -57,10 +57,14 @@ class User < ActiveRecord::Base
 
   def self.get_connections_count(user)
     user.connections.find(:all).count
+  rescue
+    nil
   end
     
   def self.get_last_found_geocache(user)
     user.found.find(:all, :order => 'created_at DESC', :limit => 1)
+  rescue
+    nil
   end
 
   def self.generate_reminder_key(user)

@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  before_filter :prepare_for_mobile
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
@@ -67,4 +68,13 @@ class ApplicationController < ActionController::Base
       Math.atan2(Math.sqrt(1.0-x*x), x)
   end
 
+  def mobile_device?
+      session[:mobile_param] == "true" ? (return true) : (return false)
+  end
+  helper_method :mobile_device?
+
+  def prepare_for_mobile
+     session[:mobile_param] = params[:mobile] if params[:mobile]
+     request.format = :mobile if mobile_device?
+  end
 end

@@ -1,0 +1,7 @@
+<% if user.nil?
+    result = "false"
+   else 
+    result = "true"
+   end
+%>
+{"connection":[{"success":"<%=result%>"}]}

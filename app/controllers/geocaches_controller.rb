@@ -42,6 +42,7 @@ ITEMS_PER_PAGE = 20
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @geocaches }
+      format.json { render :json => @geocaches }
     end
   rescue
       @geocaches = Geocache.find(:all).paginate :page=>params[:page], :order=>'id', :per_page=>ITEMS_PER_PAGE

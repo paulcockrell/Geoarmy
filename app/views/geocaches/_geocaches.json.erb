@@ -1,0 +1,12 @@
+{"locations":[
+<% if @geocaches.nil? || @geocaches.empty? 
+     #do nothing
+   else
+       @geocaches.each do |geocache|
+%>
+<%= "{\"id\":\"#{geocache.id}\",\"lat\":\"#{geocache.lat}\",\"lon\":\"#{geocache.lon}\"}" -%>
+<%
+       end
+   end
+%>
+]}

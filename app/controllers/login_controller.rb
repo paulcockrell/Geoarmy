@@ -1,10 +1,12 @@
 class LoginController < ApplicationController
 before_filter :set_active_menu, :only => [:add_user]
-before_filter :authorize, :except => [:login, :add_user]
-
-#  layout "admin"
+before_filter :authorize, :except => [:login, :add_user, :get_auth_token]
+protect_from_forgery :except => [:get_auth_token]
+before_filter :prepare_for_mobile
 
   def login
+    @sent_token = params[:authenticity_token]
+    @real_token = form_authenticity_token
     session[:user_id] = nil
     if request.post?
       user = User.authenticate(params[:name], params[:password])
@@ -18,9 +20,21 @@ before_filter :authorize, :except => [:login, :add_user]
       else
         flash[:notice] = "Invalid user/password combination"
       end
-
-      redirect_to(uri || {:controller=>"home",:action=>"index"})
+      logger.info "auth real=#{@real_token}"
+      logger.info "auth sent=#{@sent_token}"
+      respond_to do |format|
+        format.html {logger.info "bolox"; redirect_to(uri || {:controller=>"home",:action=>"index"}) }
+        format.mobile { render :partial => "/home/index.mobile", :locals => {:user => user, :sent_token => @sent_token, :real_token => @real_token} }
+      end
     end
+  end
+
+  def get_auth_token
+     @token = form_authenticity_token
+     respond_to do |format|
+         format.mobile { render :html => @token }
+         format.html  { render :html => @token }
+     end
   end
 
   def logout

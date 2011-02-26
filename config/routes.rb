@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'login/list_users', :controller => 'login', :action => 'list_users'
   map.connect 'login/login', :controller => 'login', :action => 'login'
   map.connect 'login/logout', :controller => 'login', :action => 'logout'
+  map.connect 'login/get_auth_token', :controller => 'login', :action => 'get_auth_token'
   map.connect 'user/forgotten_password', :controller => 'users', :action => 'forgotten_password'
   map.connect 'user/forgotten_username', :controller => 'users', :action => 'forgotten_username'
   map.connect 'user/reset_password/:id', :controller => 'users', :action => 'reset_password', :object => :id

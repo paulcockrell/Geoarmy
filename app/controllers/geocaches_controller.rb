@@ -7,6 +7,7 @@ before_filter :find_geocache,
 before_filter :authorize,
     :only => [:new, :edit, :update, :show, :destroy]
 before_filter :set_menu
+before_filter :prepare_for_mobile
 
 DISTANCE = 20
 ITEMS_PER_PAGE = 20
@@ -23,7 +24,7 @@ ITEMS_PER_PAGE = 20
         @geocaches = find_geocaches_by_distance(params[:lat], params[:lon], DISTANCE).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
         @center_point = [params[:lat],params[:lon]]
         @distance     = DISTANCE
-        @address      = params[:geocache][:address]
+        @address      = params[:geocache][:address] unless params[:geocache].nil? 
     else
         user = get_user
         if(user.nil?)
@@ -38,11 +39,11 @@ ITEMS_PER_PAGE = 20
         @distance = DISTANCE
         end
     end
+    logger.warn "mobby sesh: #{session[:mobile_param]}"
     @title = "Listing all geocaches"
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @geocaches }
-      format.json { render :json => @geocaches }
+      format.mobile { logger.info "geocaches: #{@geocaches.inspect} " ;render :partial => "/geocaches/index.mobile", :locals => {:geocaches => @geocaches} }
     end
   rescue
       @geocaches = Geocache.find(:all).paginate :page=>params[:page], :order=>'id', :per_page=>ITEMS_PER_PAGE

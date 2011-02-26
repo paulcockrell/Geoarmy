@@ -20,8 +20,6 @@ before_filter :prepare_for_mobile
       else
         flash[:notice] = "Invalid user/password combination"
       end
-      logger.info "auth real=#{@real_token}"
-      logger.info "auth sent=#{@sent_token}"
       respond_to do |format|
         format.html {logger.info "bolox"; redirect_to(uri || {:controller=>"home",:action=>"index"}) }
         format.mobile { render :partial => "/home/index.mobile", :locals => {:user => user, :sent_token => @sent_token, :real_token => @real_token} }

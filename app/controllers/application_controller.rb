@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
           session[:original_uri] = request.request_uri
           uri = session[:original_uri]
           flash[:notice] = "You must first be logged in to access this part of the site!"
-          redirect_to({:controller => "geocaches", :action => "index"})
+          redirect_to({:controller => "home", :action => "index"})
       end
   end
 

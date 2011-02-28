@@ -5,7 +5,7 @@ class GeocachesController < ApplicationController
 before_filter :find_geocache,
     :only => [:show, :edit, :update, :destroy]
 before_filter :authorize,
-    :only => [:new, :edit, :update, :show, :destroy]
+    :only => [:index, :new, :edit, :update, :show, :destroy]
 before_filter :set_menu
 before_filter :prepare_for_mobile
 

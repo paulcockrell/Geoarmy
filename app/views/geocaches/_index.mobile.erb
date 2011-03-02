@@ -4,7 +4,7 @@
    else
        geocaches.each do |geocache|
 %>
-<%= "{\"id\":\"#{geocache.id}\",\"lat\":\"#{ sprintf "%.6f", geocache.lat}\",\"lon\":\"#{ sprintf "%.6f", geocache.lon}\"}" -%>
+<%= "{\"id\":\"#{geocache.id}\",\"name\":\"#{geocache.name}\",\"lat\":\"#{ sprintf "%.6f", geocache.lat}\",\"lon\":\"#{ sprintf "%.6f", geocache.lon}\"}" -%>
 <%
        end
    end

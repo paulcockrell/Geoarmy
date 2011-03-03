@@ -262,7 +262,7 @@ ITEMS_PER_PAGE = 20
 	  end
 
       def construct_geocache_distance_query(current_lat, current_lon, max_distance)
-             "select id,name,user_id,lat,lon,(6378*acos(sin((PI()/180)*lat) * sin((PI()/180)*#{current_lat})+cos((PI()/180)*lat)*cos((PI()/180)*#{current_lat})*cos(((PI()/180)*lon)-((PI()/180)*#{current_lon})))*0.621371192) AS distance FROM geocaches HAVING distance <= #{max_distance} ORDER BY distance ASC"
+             "select id,name,user_id,lat,lon,notes,(6378*acos(sin((PI()/180)*lat) * sin((PI()/180)*#{current_lat})+cos((PI()/180)*lat)*cos((PI()/180)*#{current_lat})*cos(((PI()/180)*lon)-((PI()/180)*#{current_lon})))*0.621371192) AS distance FROM geocaches HAVING distance <= #{max_distance} ORDER BY distance ASC"
       end
 
       def get_geocode(address)

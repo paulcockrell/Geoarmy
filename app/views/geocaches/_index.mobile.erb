@@ -2,10 +2,13 @@
 <% if geocaches.nil? || geocaches.empty? 
      #do nothing
    else
-       geocaches.each do |geocache|
+       geocacheCount = geocaches.count
+       geocaches.each_with_index do |geocache, index|
 %>
 <%= "{\"id\":\"#{geocache.id}\",\"name\":\"#{geocache.name}\",\"lat\":\"#{ sprintf "%.6f", geocache.lat}\",\"lon\":\"#{ sprintf "%.6f", geocache.lon}\"}" -%>
-<%
+<% if index < geocacheCount %>
+    ,
+<% end 
        end
    end
 %>

@@ -71,6 +71,7 @@ ITEMS_PER_PAGE = 20
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @geocache }
+        format.mobile { logger.info "geocaches: #{@geocache.inspect} " ;render :partial => "/geocaches/show.mobile", :locals => {:geocache => @geocache, :favorite => @favorite, :found => @found} }
       end
   end
   

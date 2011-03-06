@@ -25,7 +25,10 @@ before_filter :prepare_for_mobile
           @found.destroy
           #remove score from user rank
           del_score_to_rank('found')
-          render :partial => 'found', :object => params[:id]
+          respond_to do |format|
+            format.html { render :partial => 'found', :object => params[:id] }
+            format.mobile { render :partial => "del_found.mobile" }
+          end
       end
   end
 

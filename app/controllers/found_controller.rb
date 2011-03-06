@@ -13,7 +13,7 @@ before_filter :prepare_for_mobile
           add_score_to_rank('found')
           respond_to do |format|
             format.html {render :partial => 'found_del', :object => params[:id]}
-            format.mobile { render :partial => "/geocaches/add_found.mobile" }
+            format.mobile { render :partial => "add_found.mobile" }
           end
       end
   end

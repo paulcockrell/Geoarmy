@@ -10,7 +10,10 @@ class FoundController < ApplicationController
       if request.post? and @found.save
           #add score to user rank
           add_score_to_rank('found')
-          render :partial => 'found_del', :object => params[:id]
+          respond_to do |format|
+            format.html {render :partial => 'found_del', :object => params[:id]}
+            format.mobile { render :partial => "/geocaches/add_found.mobile" }
+          end
       end
   end
 

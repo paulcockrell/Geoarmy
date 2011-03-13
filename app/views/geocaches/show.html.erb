@@ -30,6 +30,16 @@
         <td><% link_to(:controller=>'profile', :action=>'show', :id=>@user_id) do%><%=h @user_name %><% end %></td>
         </tr>
         <tr>
+            <td><b>Found date:</b></td>
+            <td>
+              <% if @found[0].nil? %>
+                  You have not found this geocache yet
+              <% else %>
+                  <%= format_date(@found[0].created_at) %>
+              <% end %>
+            </td>
+        </tr>
+        <tr>
             <td><b>Rating:</b></td>
             <td><%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %></td>
         </tr>

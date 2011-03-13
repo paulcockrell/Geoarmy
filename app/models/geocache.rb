@@ -22,4 +22,14 @@ class Geocache < ActiveRecord::Base
         sql_conditions += " order by geocaches.id"
     end
 
+    def get_average_rating
+        number_of_ratings = 0
+        total_of_ratings  = 0
+        self.ratings.each_with_index do |rating, idx|
+            number_of_ratings = idx + 1
+            total_of_ratings += rating.geocache_rating
+        end
+        average_rating =  total_of_ratings / number_of_ratings
+        average_rating
+    end
 end

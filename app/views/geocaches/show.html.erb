@@ -40,12 +40,15 @@
             </td>
         </tr>
         <tr>
-            <td><b>Rating:</b></td>
+            <td><b>Average rating:</b></td>
             <td>
             <% if @found[0].nil? %>
                 You must find a geocache to rate it
             <% else %>
-                <%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %>
+                <%= @geocache.get_average_rating %>
+                <% if @rating == -1 %>
+                    <%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %>
+                <% end %>
             <% end %>
             </td>
         </tr>

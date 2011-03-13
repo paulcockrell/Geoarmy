@@ -29,7 +29,11 @@ class Geocache < ActiveRecord::Base
             number_of_ratings = idx + 1
             total_of_ratings += rating.geocache_rating
         end
-        average_rating =  total_of_ratings / number_of_ratings
+        if (number_of_ratings == 0 || total_of_ratings == 0)
+            average_rating = -1
+        else
+            average_rating =  total_of_ratings / number_of_ratings
+        end
         average_rating
     end
 end

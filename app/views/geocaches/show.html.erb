@@ -41,7 +41,13 @@
         </tr>
         <tr>
             <td><b>Rating:</b></td>
-            <td><%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %></td>
+            <td>
+            <% if @found[0].nil? %>
+                You must find a geocache to rate it
+            <% else %>
+                <%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %>
+            <% end %>
+            </td>
         </tr>
     </table>
 </div>

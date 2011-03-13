@@ -42,6 +42,7 @@
         <tr>
             <td><b>Average rating:</b></td>
             <td>
+                <div id="rating_div">
             <% if @found[0].nil? %>
                 <% if @geocache.get_average_rating.to_i < 0 %>
                     Not yet rated
@@ -50,7 +51,7 @@
                 <% end %>
             <% else %>
                 <% if @rating == -1 %>
-                    <%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %>
+                        <%= select_tag("rating", options_for_select([["1",1],["2",2],["3",3],["4",4],["5",5]], @rating.to_i)) %>
                 <% else 
                     if @geocache.get_average_rating.to_i < 0 %>
                         Not yet rated
@@ -60,6 +61,7 @@
                    end
                %>
             <% end %>
+                </div>
             </td>
         </tr>
     </table>

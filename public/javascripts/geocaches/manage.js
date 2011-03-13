@@ -9,7 +9,9 @@ function saveRating(rating) {
         {
             method: 'post',
             parameters: {geo_rating: rating, geo_id: geocache_id}, 
-            onSuccess: function(transport) {},
+            onSuccess: function(transport) {
+                    $('rating_div').update("<div id=\'rating_div\'>"+rating+"</div>");
+                },
             onFailure: function(){ alert('Failed to save rating, please try again') }
         });
 }

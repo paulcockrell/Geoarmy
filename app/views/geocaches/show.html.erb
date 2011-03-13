@@ -62,13 +62,6 @@
         <%= render :partial=>'favorites/favorite_del', :object=>@geocache.id %>
     <% end %>
     </span>
-    <span id="found">
-    <% if @found.nil? || @found.empty? %>
-        <%= render :partial=>'found/found', :object=>@geocache.id %>
-    <% else %>
-        <%= render :partial=>'found/found_del', :object=>@geocache.id %>
-    <% end %>
-    </span>
     <span id="connections">
         <% if @connection.nil? || @connection.empty? %>
             <%= render :partial=>'connections/connection', :object=>@geocache.user_id %>

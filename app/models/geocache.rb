@@ -7,7 +7,7 @@ class Geocache < ActiveRecord::Base
     validates_presence_of :name, :lat, :lon
 	validates_length_of   :lat, :lon, :within => 5..10, :too_long => 'Geocode can be a maximum of 10 digits long', :too_short => 'Geocode can be a minimum of 5 digits long'
     validates_format_of   :lat, :lon, :with => /\A\-?\d{1,3}\.\d+\z/
-    validates_format_of   :name, :notes, :with => /\A[\w\s]+\z/
+    validates_format_of   :name, :with => /\A[\w\s]+\z/
     after_save :log
 
     def log

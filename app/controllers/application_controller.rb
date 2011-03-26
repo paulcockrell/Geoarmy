@@ -13,6 +13,15 @@ class ApplicationController < ActionController::Base
   FOUND_SCORE    = 2
   UPLOAD_SCORE   = 10
 
+  def privacy
+      render :template => 'legal/privacy_policy.erb'
+  end
+
+  def terms
+      render :template => 'legal/terms_and_conditions.erb'
+  end
+  
+  
   private
   
   def add_score_to_rank(action)

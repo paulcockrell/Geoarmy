@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users
+  map.connect 'terms_and_conditions', :controller => 'application', :action => 'terms' 
+  map.connect 'privacy_policy', :controller => 'application', :action => 'privacy' 
   map.connect 'login/list_users', :controller => 'login', :action => 'list_users'
   map.connect 'login/login', :controller => 'login', :action => 'login'
   map.connect 'login/logout', :controller => 'login', :action => 'logout'

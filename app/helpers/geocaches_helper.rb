@@ -18,6 +18,10 @@ module GeocachesHelper
         markers
     end
 
+    def set_display_type(type)
+        "<script type=\"text/javascript\">var type = '#{type}';</script>"
+    end
+
     def count_all_geocaches
         Geocache.find(:all).count
     end

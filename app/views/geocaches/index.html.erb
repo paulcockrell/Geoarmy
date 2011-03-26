@@ -43,6 +43,7 @@
     <% unless @center_point.nil? || @center_point.empty? -%>
         <%= generate_center_marker(@center_point) %>
     <% end -%>
+    <%= set_display_type(@type || 'geocaches') -%>
 <% end %>
 <%= box_grey_start %>
     <div id="map_canvas" />

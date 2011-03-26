@@ -222,7 +222,7 @@ function getGeocaches(map, parseGeocacheResults) {
         });
         updateMarkerOnMap(map);
     } else {
-        new Ajax.Request('/geocaches/get_geocaches',
+        new Ajax.Request('/geocaches/get_'+type,
          {
              method: 'post',
              parameters: {lat: centerMarker[0], lng: centerMarker[1]}, 

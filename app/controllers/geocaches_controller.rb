@@ -20,6 +20,7 @@ ITEMS_PER_PAGE = 20
   # GET /geocaches.xml
   def index
     @search = true
+    @type   = 'geocaches'
     if (params[:commit])
         @geocaches = find_geocaches_by_distance(params[:lat], params[:lon], DISTANCE).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
         @center_point = [params[:lat],params[:lon]]
@@ -172,8 +173,8 @@ ITEMS_PER_PAGE = 20
       user_geocode = get_geocode @address
       @center_point = [user_geocode[:lat],user_geocode[:lon]]
       @distance = DISTANCE
-      @geocaches = user.geocaches.paginate :page => params[:page], :order => 'id', :per_page => 10
-      @my_geocaches = true
+      @geocaches = user.geocaches.paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
+      @type = 'upload'
       @title = "Listing my uploaded geocaches"
       render :index
   end
@@ -185,6 +186,7 @@ ITEMS_PER_PAGE = 20
       @center_point = [user_geocode[:lat],user_geocode[:lon]]
       @distance = DISTANCE
       @geocaches = Geocache.all(:joins=>{:favorites, :user}, :conditions=>['users.id=?',user.id]).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
+      @type = 'favorite'
       @title = "Listing my favorite geocaches"
       render :index
   end
@@ -196,6 +198,7 @@ ITEMS_PER_PAGE = 20
       @center_point = [user_geocode[:lat],user_geocode[:lon]]
       @distance = DISTANCE
       @geocaches = Geocache.all(:joins=>{:found, :user}, :conditions=>['users.id=?',user.id]).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
+      @type = 'found'
       @title = "Listing my found geocaches"
       render :index
   end
@@ -209,6 +212,33 @@ ITEMS_PER_PAGE = 20
       lat = params[:lat]
       lng = params[:lng]
       @result = find_geocaches_by_distance(lat,lng,20)
+      respond_to do |format|
+          format.html { redirect_to '/' }
+          format.js { render :partial=>'get_geocaches', :locals=>{:result=>@result}}
+      end
+  end
+
+  def get_found
+      user = get_user
+      @result = Geocache.all(:joins=>{:found, :user}, :conditions=>['users.id=?',user.id]).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
+      respond_to do |format|
+          format.html { redirect_to '/' }
+          format.js { render :partial=>'get_geocaches', :locals=>{:result=>@result}}
+      end
+  end
+
+  def get_favorite
+      user = get_user
+      @result = Geocache.all(:joins=>{:favorites, :user}, :conditions=>['users.id=?',user.id]).paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
+      respond_to do |format|
+          format.html { redirect_to '/' }
+          format.js { render :partial=>'get_geocaches', :locals=>{:result=>@result}}
+      end
+  end
+
+  def get_upload
+      user = get_user
+      @result = user.geocaches.paginate :page => params[:page], :order => 'id', :per_page => ITEMS_PER_PAGE
       respond_to do |format|
           format.html { redirect_to '/' }
           format.js { render :partial=>'get_geocaches', :locals=>{:result=>@result}}

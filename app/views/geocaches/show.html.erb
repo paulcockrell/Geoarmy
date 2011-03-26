@@ -3,7 +3,7 @@
     <%= javascript_include_tag "geocaches/gmaps" %>
     <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <%  points = Array.new
-    points << Array["lat"=>@geocache.lat,"lon"=>@geocache.lon,"index"=>500,"name"=>@geocache.name]
+        points << Array["id"=>@geocache.id,"lat"=>@geocache.lat,"lon"=>@geocache.lon,"index"=>500,"name"=>@geocache.name]
         center_point = [@geocache.lat,@geocache.lon]
     %>
     <%= generate_map_markers(points) %>

@@ -30,6 +30,26 @@
         <td><% link_to(:controller=>'profile', :action=>'show', :id=>@user_id) do%><%=h @user_name %><% end %></td>
         </tr>
         <tr>
+            <td><b>Status:</b></td>
+            <td><%=h @geocache.status %></td>
+        </tr>
+        <tr>
+            <td><b>Type:</b></td>
+            <td><%=h @geocache.type %></td>
+        </tr>
+        <tr>
+            <td><b>Terrain:</b></td>
+            <td><%=h @geocache.terrain %></td>
+        </tr>
+        <tr>
+            <td><b>Difficulty:</b></td>
+            <td><%=h @geocache.difficulty %></td>
+        </tr>
+        <tr>
+            <td><b>Size:</b></td>
+            <td><%=h @geocache.size %></td>
+        </tr>
+        <tr>
             <td><b>Found date:</b></td>
             <td>
               <% if @found[0].nil? %>

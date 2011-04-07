@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'geocaches/my_found_geocaches', :controller => 'geocaches', :action => 'my_found_geocaches' 
   map.connect 'news_feed', :controller => 'action_log', :action => 'index' 
   map.connect 'geocaches/save_rating', :controller => 'geocaches', :action => 'save_rating'
+  map.connect 'contact', :controller => 'contact', :action => 'index'
   map.resources :geocaches
   map.root :controller => "home" 
   

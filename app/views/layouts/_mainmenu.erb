@@ -30,8 +30,11 @@
             <%= link_to "<span>Your Profile</span>", :controller=>"/profile" %>
         </li>
         <% end %>
-        <li class="<%= session[:active_menu]=="item40" ? "active item40" : "item40" %> right">
+        <li class="<%= session[:active_menu]=="item40" ? "active item40" : "item40" %>">
             <%= link_to "<span>FAQ</span>", :controller=>"/faq" %>         
+        </li>
+        <li class="<%= session[:active_menu]=="item50" ? "active item50" : "item50" %> right">
+            <%= link_to "<span>Contact</span>", :controller=>"/contact" %>
         </li>
     </ul>
 </div>

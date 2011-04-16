@@ -69,7 +69,8 @@ function createMarker(geocache) {
   
   var shadow = new google.maps.MarkerImage('/images/icons/ruby_shadow.png',
       new google.maps.Size(24,16),
-      new google.maps.Point(0,32)
+      new google.maps.Point(0,0),
+      new google.maps.Point(10,18)
   );
   
   var myLatLng = new google.maps.LatLng(geocache[1], geocache[2]);
